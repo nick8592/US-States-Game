@@ -8,7 +8,6 @@ turtle.shape(image)
 
 data = pandas.read_csv("50_states.csv")
 state_list = data.state.to_list()
-print(state_list)
 
 screen.title("Name the States")
 correct_list = []
@@ -17,10 +16,11 @@ while correct_count < 50:
     answer_state = screen.textinput(title=f"{correct_count}/50 States Correct",
                                     prompt="What's another state's name?").title()
     if answer_state == "Exit":
-        fail_list = []
-        for state in state_list:
-            if state not in correct_list:
-                fail_list.append(state)
+        fail_list = [state for state in state_list if state not in correct_list]
+        # fail_list = []
+        # for state in state_list:
+        #     if state not in correct_list:
+        #         fail_list.append(state)
         new_data = pandas.DataFrame(fail_list)
         new_data.to_csv("states_to_learn.csv")
         break
